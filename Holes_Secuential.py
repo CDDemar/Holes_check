@@ -23,7 +23,6 @@ class Trip:
 	def __init__(self, ID):
 		self.ID = ID
 		self.points = []
-		self.processed = 0
 		self.a_max = -1000000
 		self.a_min = 1000000
 		self.distance = 0
