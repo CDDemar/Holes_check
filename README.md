@@ -3,7 +3,7 @@ University Project, in which given a set of points the script must categorize th
 
 # Params:
 - #### R: Radius.
-- #### S: Magnitude Value for discriminating the acceleration normalization of each point.
+- #### S: Magnitude Value for discriminating the normalized acceleration of each point.
 
 # Classes:
 - ## Point:
