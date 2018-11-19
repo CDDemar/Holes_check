@@ -146,7 +146,7 @@ if(go):
 			h = Point(prom_Lat, prom_Lng, prom_Alt, prom_Ace)
 			print(h.Lat, h.Lng, h.Alt, h.Ace)
 			holes.append(h)
-	print('there are %d holes', len(holes))
+	print('There are ', len(holes), ' holes')
 else:
 	print('Syntax error, R must be an int and S must be a float!')
 
