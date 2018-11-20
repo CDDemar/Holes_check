@@ -77,11 +77,10 @@ except SyntaxError:
 	S = 0.8
 if(go):
     print('Loading data!')
-	tree = ET.parse('raw.xml')
-	root = tree.getroot()
-	print('Data loaded, processing begins!')
-	raw_input('Hit ENTER to continue')
-	
+    tree = ET.parse('raw.xml')
+    root = tree.getroot()
+    print('Data loaded, processing begins!')
+    raw_input('Hit ENTER to continue')
     if(rank == 0):
         initial = time.time()
         # Creando los viajes y asignandoles sus respectivos puntos:
@@ -127,10 +126,10 @@ if(go):
             for point in trip.points:
                 sPoints.append(point)
         sPoints.sort(key = lambda x: x.Ace, reverse=True)
-	    print('Finding neighborhoods!')
+        print('Finding neighborhoods!')
         # P >= S y dist(cand, P) <= R!
         start = True
-	    comm.bcast(start, root=0)
+        comm.bcast(start, root=0)
         while (sPoints[target].Ace > S):
             point = sPoints[target]
             if(not point.processed):
@@ -155,7 +154,7 @@ if(go):
             comm.send(False, dest=i)
         for i in range(1,size):
             results = comm.recv(source=i)
-		    for x in range(0,len(results)): 
+            for x in range(0,len(results)): 
                 holes.append(results[x])
         print('Huecos:')
         for h in holes:

@@ -69,12 +69,12 @@ try:
 except SyntaxError:
 	S = 0.8
 if(go):
-	start = time.time()
 	print('Loading data!')
 	tree = ET.parse('raw.xml')
 	root = tree.getroot()
 	print('Data loaded, processing begins!')
 	raw_input('Hit ENTER to continue')
+	start = time.time()
 	# Creando los viajes y asignandoles sus respectivos puntos:
 	for database in root.findall('database'):
 		for child in database:
