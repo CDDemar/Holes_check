@@ -1,5 +1,19 @@
 import xml.etree.ElementTree as ET
+import time
 import math
+
+bookmark = 0
+index = 0
+trips = []
+sPoints = []
+neighborhood = []
+neighborhoods = []
+prom_Lat = 0
+prom_Lng = 0
+prom_Alt = 0
+prom_Ace = 0
+holes = []
+
 class Point:
 	def __init__(self, Lat, Lng, Alt, Ace, ID=None, Trip_ID=None, TimeStamp=None, Speed=None):
 		self.ID = ID if ID is not None else ''
@@ -55,12 +69,10 @@ try:
 except SyntaxError:
 	S = 0.8
 if(go):
+	start = time.time()
 	print('Loading data!')
 	tree = ET.parse('raw.xml')
 	root = tree.getroot()
-	trips = []
-	bookmark = 0
-	index = 0
 	print('Data loaded, processing begins!')
 	raw_input('Hit ENTER to continue')
 	# Creando los viajes y asignandoles sus respectivos puntos:
@@ -102,14 +114,11 @@ if(go):
 		trip.normalize()
 	# Creando un vector de puntos y ordenandolo:
 	print('Sorting all the points!')
-	sPoints = []
 	for trip in trips:
 		for point in trip.points:
 			sPoints.append(point)
 	sPoints.sort(key = lambda x: x.Ace, reverse=True)
 	print('Finding neighborhoods!')
-	neighborhoods = []
-	neighborhood = []
 	# P >= S y dist(cand, P) <= R!
 	for point in sPoints:
 		if(point.Ace >= S and not point.processed):
@@ -127,11 +136,6 @@ if(go):
 					candidate.processed = True
 			neighborhoods.append(neighborhood)
 	print('Finding holes!')
-	holes = []
-	prom_Lat = 0
-	prom_Lng = 0
-	prom_Alt = 0
-	prom_Ace = 0
 	for neighborhood in neighborhoods:
 		for point in neighborhood:
 			prom_Lat = prom_Lat +point.Lat
@@ -146,7 +150,8 @@ if(go):
 			h = Point(prom_Lat, prom_Lng, prom_Alt, prom_Ace)
 			print(h.Lat, h.Lng, h.Alt, h.Ace)
 			holes.append(h)
-	print('There are ', len(holes), ' holes')
+	print('There are', len(holes), 'holes')
+	print('Time:', (time.time() -start))
 else:
 	print('Syntax error, R must be an int and S must be a float!')
 
